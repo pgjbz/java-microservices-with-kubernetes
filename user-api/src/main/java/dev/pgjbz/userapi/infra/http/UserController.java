@@ -1,4 +1,4 @@
-package dev.pgjbz.userapi.infra.api;
+package dev.pgjbz.userapi.infra.http;
 
 import java.util.List;
 import java.util.stream.Collectors;
