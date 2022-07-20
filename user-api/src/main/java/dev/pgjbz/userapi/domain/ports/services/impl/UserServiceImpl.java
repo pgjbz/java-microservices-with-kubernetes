@@ -41,9 +41,14 @@ public final class UserServiceImpl implements UserService {
     public void update(User user) {
         final var userId = user.id();
         userRepository.findById(userId)
-                .ifPresentOrElse(oldUser -> userRepository.update(user), () -> {
+                .ifPresentOrElse(oldUser -> userRepository.update(copy(oldUser, user)), () -> {
                     throw new NotFoundException(String.format("user with id %s not founded", userId));
                 });
+    }
+
+    private final User copy(User oldUser, User newUser) {
+        return new User(oldUser.id(), newUser.name(), newUser.document(), newUser.address(), newUser.email(),
+                newUser.phone(), oldUser.registerDate());
     }
 
     @Override
