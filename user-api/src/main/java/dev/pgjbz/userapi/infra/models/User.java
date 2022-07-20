@@ -28,6 +28,9 @@ public class User {
     @CreationTimestamp
     private LocalDateTime registerDate;
 
+    public User() {
+    }
+
     public User(dev.pgjbz.userapi.domain.models.User user) {
         this.id = user.id();
         this.name = user.name();
