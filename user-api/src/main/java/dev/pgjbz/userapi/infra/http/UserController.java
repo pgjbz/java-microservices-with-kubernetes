@@ -3,6 +3,8 @@ package dev.pgjbz.userapi.infra.http;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         var user = userService.save(userRequestDTO.toUser());
         return ResponseEntity.status(HttpStatus.CREATED).body(toUserResponseDTO(user));
     }
@@ -56,7 +58,7 @@ public class UserController {
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
         userService.update(userRequestDTO.toUser(id));
         return ResponseEntity.status(HttpStatus.OK).build();
     }

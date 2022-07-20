@@ -7,18 +7,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public record User(
-        @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id,
-        String name,
-        String document,
-        String address,
-        String email,
-        String phone,
-        LocalDateTime registerDate) {
+public class User {
+    @Id
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String document;
+    private String address;
+    private String email;
+    private String phone;
+    @CreationTimestamp
+    private LocalDateTime registerDate;
 
     public User(dev.pgjbz.userapi.domain.models.User user) {
-        this(user.id(), user.name(), user.document(), user.address(), user.email(), user.phone(), user.registerDate());
+        this.id = user.id();
+        this.name = user.name();
+        this.document = user.document();
+        this.address = user.address();
+        this.email = user.email();
+        this.phone = user.phone();
+        this.registerDate = user.registerDate();
     }
 
     public dev.pgjbz.userapi.domain.models.User toDomainUser() {
