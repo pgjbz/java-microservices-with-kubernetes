@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:microservices}
+    username: ${DATABASE_USERNAME:microservices}
+    password: ${DATABASE_PASSWORD:secret123}
+  flyway:
+    schemas: products
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: products
