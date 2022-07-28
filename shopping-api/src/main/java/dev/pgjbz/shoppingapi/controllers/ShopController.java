@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.validation.Valid;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.pgjbz.shoppingapi.dto.report.ShopReportDTO;
+import dev.pgjbz.shoppingapi.dto.request.ShopFilterDTO;
+import dev.pgjbz.shoppingapi.dto.request.ShopReportFilterDTO;
 import dev.pgjbz.shoppingapi.dto.request.ShopRequestDTO;
 import dev.pgjbz.shoppingapi.dto.response.ShopResponseDTO;
 import dev.pgjbz.shoppingapi.models.Shop;
@@ -47,6 +52,17 @@ public class ShopController {
     public ResponseEntity<ShopResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(
                 new ShopResponseDTO(shopService.findById(id)));
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<Stream<ShopResponseDTO>> findByFilter(@Valid ShopFilterDTO filter) {
+        return ResponseEntity.ok(
+                toShopResponse(shopService.findByFilter(filter)));
+    }
+
+    @GetMapping(value = "report")
+    public ResponseEntity<ShopReportDTO> report(@Valid ShopReportFilterDTO filter) {
+        return ResponseEntity.ok(shopService.reportByFilter(filter));
     }
 
     @PostMapping

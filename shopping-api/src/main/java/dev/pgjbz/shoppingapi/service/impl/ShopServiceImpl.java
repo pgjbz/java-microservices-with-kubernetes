@@ -7,8 +7,12 @@ import javax.persistence.NoResultException;
 
 import org.springframework.stereotype.Service;
 
+import dev.pgjbz.shoppingapi.dto.report.ShopReportDTO;
+import dev.pgjbz.shoppingapi.dto.request.ShopFilterDTO;
+import dev.pgjbz.shoppingapi.dto.request.ShopReportFilterDTO;
 import dev.pgjbz.shoppingapi.models.Item;
 import dev.pgjbz.shoppingapi.models.Shop;
+import dev.pgjbz.shoppingapi.repository.ShopReportRepository;
 import dev.pgjbz.shoppingapi.repository.ShopRepository;
 import dev.pgjbz.shoppingapi.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ShopServiceImpl implements ShopService {
 
     private final ShopRepository shopRepository;
+    private final ShopReportRepository shopReportRepository;
 
     @Override
     public List<Shop> findAll() {
@@ -54,6 +59,16 @@ public class ShopServiceImpl implements ShopService {
                         .reduce(0D, Double::sum));
         shop.setDate(LocalDateTime.now());
         return shopRepository.save(shop);
+    }
+
+    @Override
+    public List<Shop> findByFilter(ShopFilterDTO filter) {
+        return shopReportRepository.findShopByFilter(filter);
+    }
+
+    @Override
+    public ShopReportDTO reportByFilter(ShopReportFilterDTO filter) {
+        return shopReportRepository.findReportByDate(filter);
     }
 
 }
