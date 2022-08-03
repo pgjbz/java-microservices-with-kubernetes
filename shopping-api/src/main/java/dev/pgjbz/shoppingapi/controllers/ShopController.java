@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pgjbz.shoppingapi.dto.report.ShopReportDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopFilterDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopReportFilterDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopRequestDTO;
-import dev.pgjbz.shoppingapi.dto.response.ShopResponseDTO;
+import dev.pgjbz.core.dto.report.ShopReportDTO;
+import dev.pgjbz.core.dto.request.ShopFilterDTO;
+import dev.pgjbz.core.dto.request.ShopReportFilterDTO;
+import dev.pgjbz.core.dto.request.ShopRequestDTO;
+import dev.pgjbz.core.dto.response.ShopResponseDTO;
 import dev.pgjbz.shoppingapi.models.Shop;
 import dev.pgjbz.shoppingapi.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class ShopController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<ShopResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(
-                new ShopResponseDTO(shopService.findById(id)));
+                shopService.findById(id).toShopResponse());
     }
 
     @GetMapping(value = "/search")
@@ -68,10 +68,10 @@ public class ShopController {
     @PostMapping
     public ResponseEntity<ShopResponseDTO> save(@RequestBody ShopRequestDTO shopRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ShopResponseDTO(shopService.save(shopRequestDTO.toShopModel())));
+                shopService.save(new Shop(shopRequestDTO)).toShopResponse());
     }
 
     private final Stream<ShopResponseDTO> toShopResponse(List<Shop> shops) {
-        return shops.stream().map(ShopResponseDTO::new);
+        return shops.stream().map(Shop::toShopResponse);
     }
 }

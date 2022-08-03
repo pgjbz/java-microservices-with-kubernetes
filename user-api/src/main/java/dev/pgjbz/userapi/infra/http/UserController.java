@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.pgjbz.core.dto.request.UserRequestDTO;
+import dev.pgjbz.core.dto.response.UserResponseDTO;
 import dev.pgjbz.userapi.domain.ports.services.UserService;
-import dev.pgjbz.userapi.domain.models.User;
-import dev.pgjbz.userapi.infra.dto.request.UserRequestDTO;
-import dev.pgjbz.userapi.infra.dto.response.UserResponseDTO;
+import dev.pgjbz.userapi.infra.util.Mapper;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -34,32 +34,32 @@ public class UserController {
     public ResponseEntity<List<UserResponseDTO>> findAll() {
         return ResponseEntity.ok(userService.findAll()
                 .stream()
-                .map(UserResponseDTO::new)
+                .map(Mapper::toUserResponseDTO)
                 .collect(Collectors.toList()));
     }
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
-        var user = userService.save(userRequestDTO.toUser());
-        return ResponseEntity.status(HttpStatus.CREATED).body(toUserResponseDTO(user));
+        var user = userService.save(Mapper.toUser(userRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toUserResponseDTO(user));
     }
 
     @GetMapping(value = "/{document}")
     public ResponseEntity<UserResponseDTO> findByDocument(@PathVariable(value = "document") String document) {
-        return ResponseEntity.ok(toUserResponseDTO(userService.findByDocument(document)));
+        return ResponseEntity.ok(Mapper.toUserResponseDTO(userService.findByDocument(document)));
     }
 
     @GetMapping(value = "/search")
     public ResponseEntity<List<UserResponseDTO>> findByNameLike(@RequestParam(value = "name") String nameLike) {
         return ResponseEntity.ok(userService.findByNameLike(nameLike)
                 .stream()
-                .map(UserResponseDTO::new)
+                .map(Mapper::toUserResponseDTO)
                 .collect(Collectors.toList()));
     }
 
     @PutMapping(value = "{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
-        userService.update(userRequestDTO.toUser(id));
+        userService.update(Mapper.toUser(userRequestDTO, id));
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -69,8 +69,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    private final UserResponseDTO toUserResponseDTO(User user) {
-        return new UserResponseDTO(user);
-    }
+  
 
 }

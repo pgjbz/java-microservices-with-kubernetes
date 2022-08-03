@@ -3,9 +3,9 @@ package dev.pgjbz.shoppingapi.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import dev.pgjbz.shoppingapi.dto.report.ShopReportDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopFilterDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopReportFilterDTO;
+import dev.pgjbz.core.dto.report.ShopReportDTO;
+import dev.pgjbz.core.dto.request.ShopFilterDTO;
+import dev.pgjbz.core.dto.request.ShopReportFilterDTO;
 import dev.pgjbz.shoppingapi.models.Shop;
 
 public interface ShopService {

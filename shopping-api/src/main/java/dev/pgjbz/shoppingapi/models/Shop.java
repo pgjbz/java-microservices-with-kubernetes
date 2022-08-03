@@ -2,6 +2,7 @@ package dev.pgjbz.shoppingapi.models;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -12,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
+import dev.pgjbz.core.dto.request.ItemRequestDTO;
+import dev.pgjbz.core.dto.request.ShopRequestDTO;
+import dev.pgjbz.core.dto.response.ShopResponseDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(onConstructor = @__(@Deprecated))
 public class Shop {
-    
+
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +41,23 @@ public class Shop {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
     private Set<Item> items;
+
+    public Shop(ShopRequestDTO shopRequest) {
+        this.userIdentifier = shopRequest.userIdentifier();
+        this.total = shopRequest.items().stream()
+                .map(ItemRequestDTO::price)
+                .reduce(0D, Double::sum);
+        this.date = LocalDateTime.now();
+        this.items = shopRequest.items().stream()
+                .map(Item::new)
+                .collect(Collectors.toSet());
+    }
+
+    public ShopResponseDTO toShopResponse() {
+        var itemsResponse = items.stream()
+                .map(Item::toItemResponseDTO)
+                .collect(Collectors.toSet());
+        return new ShopResponseDTO(userIdentifier, total, date, itemsResponse);
+    }
 
 }

@@ -1,4 +1,4 @@
-package dev.pgjbz.shoppingapi.dto.report;
+package dev.pgjbz.core.dto.report;
 
 public record ShopReportDTO(
         Integer count,

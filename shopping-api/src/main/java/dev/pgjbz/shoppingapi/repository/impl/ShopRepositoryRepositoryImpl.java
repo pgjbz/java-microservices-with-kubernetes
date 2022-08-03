@@ -9,9 +9,9 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import dev.pgjbz.shoppingapi.dto.report.ShopReportDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopFilterDTO;
-import dev.pgjbz.shoppingapi.dto.request.ShopReportFilterDTO;
+import dev.pgjbz.core.dto.report.ShopReportDTO;
+import dev.pgjbz.core.dto.request.ShopFilterDTO;
+import dev.pgjbz.core.dto.request.ShopReportFilterDTO;
 import dev.pgjbz.shoppingapi.models.Shop;
 import dev.pgjbz.shoppingapi.repository.ShopReportRepository;
 

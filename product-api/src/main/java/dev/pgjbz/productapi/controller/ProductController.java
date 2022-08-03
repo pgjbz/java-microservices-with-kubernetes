@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.pgjbz.productapi.dto.request.ProductRequestDTO;
-import dev.pgjbz.productapi.dto.response.ProductResponseDTO;
+import dev.pgjbz.core.dto.request.ProductRequestDTO;
+import dev.pgjbz.core.dto.response.ProductResponseDTO;
 import dev.pgjbz.productapi.models.Product;
 import dev.pgjbz.productapi.services.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -41,13 +41,14 @@ public class ProductController {
     @GetMapping(value = "/{productIdentifier}")
     public ResponseEntity<ProductResponseDTO> findByIdentifier(
             @PathVariable(value = "productIdentifier") String productIdentifier) {
-        return ResponseEntity.ok(new ProductResponseDTO(productService.findByIdentifier(productIdentifier)));
+        return ResponseEntity.ok(productService.findByIdentifier(productIdentifier).toProductResponseDTO());
     }
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ProductResponseDTO(productService.createProduct(productRequestDTO.toProductModel())));
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                productService.createProduct(
+                        new Product(productRequestDTO)).toProductResponseDTO());
     }
 
     @DeleteMapping(value = "/{id}")
@@ -57,7 +58,7 @@ public class ProductController {
     }
 
     private final Stream<ProductResponseDTO> mapToResponseDTO(List<Product> products) {
-        return products.stream().map(ProductResponseDTO::new);
+        return products.stream().map(Product::toProductResponseDTO);
     }
 
 }
