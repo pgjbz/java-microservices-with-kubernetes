@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductServiceImpl implements ProductService {
 
 
-    private final String BASE_URL = "http://localhost:8081/products/{productIdentifier}";
+    private static final String BASE_URL = "http://localhost:8081/products/{productIdentifier}";
 
     @Override
     public ProductResponseDTO findByIdentifier(String productIdentifier) {
