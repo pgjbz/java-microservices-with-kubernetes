@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-import dev.pgjbz.core.dto.request.ItemRequestDTO;
 import dev.pgjbz.core.dto.request.ShopRequestDTO;
 import dev.pgjbz.core.dto.response.ShopResponseDTO;
 import lombok.AccessLevel;
@@ -44,12 +43,12 @@ public class Shop {
 
     public Shop(ShopRequestDTO shopRequest) {
         this.userIdentifier = shopRequest.userIdentifier();
-        this.total = shopRequest.items().stream()
-                .map(ItemRequestDTO::price)
-                .reduce(0D, Double::sum);
         this.date = LocalDateTime.now();
-        this.items = shopRequest.items().stream()
-                .map(Item::new)
+        this.items = shopRequest.items()
+                .stream()
+                .map(item -> Item.builder()
+                        .productIdentifier(item)
+                        .build())
                 .collect(Collectors.toSet());
     }
 

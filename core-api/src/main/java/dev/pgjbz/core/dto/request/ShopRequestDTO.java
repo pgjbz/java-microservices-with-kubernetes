@@ -5,6 +5,6 @@ import java.util.Set;
 
 public record ShopRequestDTO(
         String userIdentifier,
-        Set<ItemRequestDTO> items) {
+        Set<String> items) {
 
 }

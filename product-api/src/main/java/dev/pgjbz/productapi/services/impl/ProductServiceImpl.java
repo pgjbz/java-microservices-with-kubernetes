@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import org.springframework.stereotype.Service;
 
 import dev.pgjbz.productapi.models.Product;
+import dev.pgjbz.productapi.repository.CategoryRepository;
 import dev.pgjbz.productapi.repository.ProductRepository;
 import dev.pgjbz.productapi.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<Product> findAll() {
         log.info("fetching all products");
@@ -48,6 +50,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
+        final var categoryId = product.getCategory().getId();
+        if(!categoryRepository.existsById(categoryId)) {
+            throw new NoResultException(String.format("categiory with identifier %s not found", categoryId));
+        }
         return productRepository.save(product);
     }
 
