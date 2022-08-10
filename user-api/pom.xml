@@ -7,8 +7,9 @@
 		<version>0.0.1</version>
 		<relativePath>../</relativePath>
 	</parent>
-	<groupId>dev.pgjbz</groupId>
+
 	<artifactId>user-api</artifactId>
+	<packaging>jar</packaging>
 	<name>user-api</name>
 	<description>User api</description>
 
@@ -60,14 +61,6 @@
 						<image>${project.name}:${project.version}</image>
 					</to>
 				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>dockerBuild</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
