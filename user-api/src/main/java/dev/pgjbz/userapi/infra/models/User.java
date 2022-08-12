@@ -1,6 +1,7 @@
 package dev.pgjbz.userapi.infra.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class User {
     private String address;
     private String email;
     private String phone;
+    private UUID key;
     @CreationTimestamp
     private LocalDateTime registerDate;
 
@@ -38,12 +40,13 @@ public class User {
         this.address = user.address();
         this.email = user.email();
         this.phone = user.phone();
+        this.key = user.key();
         this.registerDate = user.registerDate();
     }
 
     public dev.pgjbz.userapi.domain.models.User toDomainUser() {
         return new dev.pgjbz.userapi.domain.models.User(
-                id, name, document, address, email, phone, registerDate);
+                id, name, document, address, email, phone, key, registerDate);
     }
 
 }

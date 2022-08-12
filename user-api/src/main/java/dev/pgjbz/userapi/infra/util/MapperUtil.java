@@ -2,13 +2,13 @@ package dev.pgjbz.userapi.infra.util;
 
 import java.time.LocalDateTime;
 
-import dev.pgjbz.core.dto.request.UserRequestDTO;
 import dev.pgjbz.core.dto.response.UserResponseDTO;
 import dev.pgjbz.userapi.domain.models.User;
+import dev.pgjbz.userapi.infra.dto.UserRequestDTO;
 
-public class Mapper {
+public class MapperUtil {
 
-    private Mapper() {
+    private MapperUtil() {
     }
 
     public static final User toUser(UserRequestDTO userRequest) {
@@ -22,6 +22,7 @@ public class Mapper {
                 userRequest.address(),
                 userRequest.email(),
                 userRequest.phone(),
+                null,
                 LocalDateTime.now());
     }
 
@@ -33,6 +34,7 @@ public class Mapper {
                 user.address(),
                 user.email(),
                 user.phone(),
+                user.key(),
                 user.registerDate());
     }
 }

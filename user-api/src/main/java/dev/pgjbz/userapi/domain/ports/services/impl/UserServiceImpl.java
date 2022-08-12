@@ -1,6 +1,7 @@
 package dev.pgjbz.userapi.domain.ports.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import dev.pgjbz.userapi.domain.exceptions.NotFoundException;
 import dev.pgjbz.userapi.domain.models.User;
@@ -48,12 +49,18 @@ public final class UserServiceImpl implements UserService {
 
     private final User copy(User oldUser, User newUser) {
         return new User(oldUser.id(), newUser.name(), newUser.document(), newUser.address(), newUser.email(),
-                newUser.phone(), oldUser.registerDate());
+                newUser.phone(), oldUser.key(), oldUser.registerDate());
     }
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        var userWithKey = createKey(user);
+        return userRepository.save(userWithKey);
+    }
+
+    private final User createKey(User user) {
+        return new User(user.id(), user.name(), user.document(), user.address(), user.email(),
+        user.phone(), UUID.randomUUID(), user.registerDate());
     }
 
 }

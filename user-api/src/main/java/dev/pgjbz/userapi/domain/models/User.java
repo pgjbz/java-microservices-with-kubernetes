@@ -1,6 +1,7 @@
 package dev.pgjbz.userapi.domain.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record User(
     Long id,
@@ -9,6 +10,7 @@ public record User(
     String address,
     String email,
     String phone,
+    UUID key,
     LocalDateTime registerDate
 ) {
     
