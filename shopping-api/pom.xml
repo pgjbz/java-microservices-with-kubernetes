@@ -58,9 +58,17 @@
 						<image>${jib-maven-plugin.image}</image>
 					</from>
 					<to>
-						<image>${project.name}:${project.version}</image>
+						<image>paulogabrieljb/${project.name}:${project.version}</image>
 					</to>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
