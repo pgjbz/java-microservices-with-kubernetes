@@ -11,3 +11,39 @@ services:
       POSTGRES_DB: 'microservices'
       POSTGRES_USER: 'microservices'
       POSTGRES_PASSWORD: 'secret123'
+    networks:
+    - microservices-network
+  user-api:
+    image: paulogabrieljb/user-api:0.0.1
+    environment:
+      DATABASE_HOST: 'microservices-db'
+    depends_on:
+    - database
+    ports:
+    - 8080:8080
+    networks:
+    - microservices-network
+  product-api:
+    image: paulogabrieljb/product-api:0.0.1
+    environment:
+      DATABASE_HOST: 'microservices-db'
+    depends_on:
+    - database
+    ports:
+    - 8081:8081
+    networks:
+    - microservices-network
+
+  shopping-api:
+    image: paulogabrieljb/shopping-api:0.0.1
+    environment:
+      DATABASE_HOST: 'microservices-db'
+    depends_on:
+    - database
+    ports:
+    - 8082:8082
+    networks:
+    - microservices-network
+
+networks:
+  microservices-network:
