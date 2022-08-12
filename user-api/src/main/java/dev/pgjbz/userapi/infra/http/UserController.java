@@ -45,8 +45,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/{document}")
-    public ResponseEntity<UserResponseDTO> findByDocument(@PathVariable(value = "document") String document) {
-        return ResponseEntity.ok(MapperUtil.toUserResponseDTO(userService.findByDocument(document)));
+    public ResponseEntity<UserResponseDTO> findByDocument(@PathVariable(value = "document") String document,
+            @RequestParam(value = "key", required = true) String key) {
+        return ResponseEntity.ok(MapperUtil.toUserResponseDTO(userService.findByDocumentAndKey(document, key)));
     }
 
     @GetMapping(value = "/search")
@@ -64,11 +65,10 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{document}")
-    public ResponseEntity<Void> deleteByDocument(@PathVariable String document) {
-        userService.deleteByDocument(document);
+    public ResponseEntity<Void> deleteByDocument(@PathVariable String document,
+            @RequestParam(value = "key", required = true) String key) {
+        userService.deleteByDocumentAndKey(document, key);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-  
 
 }

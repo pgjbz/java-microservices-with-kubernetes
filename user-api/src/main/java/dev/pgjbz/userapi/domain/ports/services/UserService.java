@@ -6,9 +6,9 @@ import dev.pgjbz.userapi.domain.models.User;
 
 public interface UserService {
     List<User> findAll();
-    User findByDocument(String document);
+    User findByDocumentAndKey(String document, String key);
     List<User> findByNameLike(String nameLike);
-    void deleteByDocument(String document);
+    void deleteByDocumentAndKey(String document, String key);
     void update(User user);
     User save(User user);
 }

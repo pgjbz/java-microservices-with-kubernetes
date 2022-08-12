@@ -2,6 +2,7 @@ package dev.pgjbz.userapi.infra.repositories.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -23,8 +24,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByDocument(String document) {
-        return userJpaRepository.findByDocument(document)
+    public Optional<User> findByDocumentAndKey(String document, String key) {
+        return userJpaRepository.findByDocumentAndKey(document, key)
                 .map(this::mapToUserDomain);
     }
 

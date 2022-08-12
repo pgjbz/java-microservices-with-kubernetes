@@ -9,7 +9,7 @@ import dev.pgjbz.userapi.infra.models.User;
 
 public interface UserJpaRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByDocument(String document);
+    Optional<User> findByDocumentAndKey(String document, String key);
     List<User> findByNameLike(String nameLike);
     void deleteByDocument(String document);
     

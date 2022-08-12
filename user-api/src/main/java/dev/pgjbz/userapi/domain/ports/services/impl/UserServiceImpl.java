@@ -22,8 +22,8 @@ public final class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByDocument(String document) {
-        return userRepository.findByDocument(document)
+    public User findByDocumentAndKey(String document, String key) {
+        return userRepository.findByDocumentAndKey(document, key)
                 .orElseThrow(() -> new NotFoundException(String.format("user with document %s not founded", document)));
     }
 
@@ -33,8 +33,8 @@ public final class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteByDocument(String document) {
-        final var user = findByDocument(document);
+    public void deleteByDocumentAndKey(String document, String key) {
+        final var user = findByDocumentAndKey(document, key);
         userRepository.delete(user);
     }
 
