@@ -1,6 +1,8 @@
 package dev.pgjbz.userapi.infra.util;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 import dev.pgjbz.core.dto.response.UserResponseDTO;
 import dev.pgjbz.userapi.domain.models.User;
@@ -34,7 +36,7 @@ public class MapperUtil {
                 user.address(),
                 user.email(),
                 user.phone(),
-                user.key(),
+                Optional.ofNullable(user.key()).map(UUID::toString).orElse(null),
                 user.registerDate());
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,9 +67,9 @@ public class ShopController {
     }
 
     @PostMapping
-    public ResponseEntity<ShopResponseDTO> save(@RequestBody ShopRequestDTO shopRequestDTO) {
+    public ResponseEntity<ShopResponseDTO> save(@RequestBody ShopRequestDTO shopRequestDTO, @RequestHeader(name = "key", required = true) String key) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                shopService.save(new Shop(shopRequestDTO)).toShopResponse());
+                shopService.save(new Shop(shopRequestDTO), key).toShopResponse());
     }
 
     private final Stream<ShopResponseDTO> toShopResponse(List<Shop> shops) {

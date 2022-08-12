@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(onConstructor = @__(@Deprecated))
-public class Shop {
+public class  Shop {
 
     @Id
     @EqualsAndHashCode.Include

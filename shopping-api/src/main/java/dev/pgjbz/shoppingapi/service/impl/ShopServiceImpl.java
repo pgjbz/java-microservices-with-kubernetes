@@ -58,8 +58,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop save(Shop shop) {
-        if (Objects.isNull(userService.findUserByDocument(shop.getUserIdentifier())))
+    public Shop save(Shop shop, String key) {
+        if (Objects.isNull(userService.findUserByDocumentAndKey(shop.getUserIdentifier(), key)))
             throw new NoResultException(
                     String.format("no user founded with document %s", shop.getUserIdentifier()));
         var items = shop.getItems();

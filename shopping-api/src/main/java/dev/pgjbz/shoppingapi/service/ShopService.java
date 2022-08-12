@@ -16,5 +16,5 @@ public interface ShopService {
     List<Shop> findByFilter(ShopFilterDTO filter);
     ShopReportDTO reportByFilter(ShopReportFilterDTO filter);
     Shop findById(Long id);
-    Shop save(Shop shop);
+    Shop save(Shop shop, String key);
 }

@@ -1,7 +1,6 @@
 package dev.pgjbz.core.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record UserResponseDTO(
         Long id,
@@ -10,7 +9,7 @@ public record UserResponseDTO(
         String address,
         String email,
         String phone,
-        UUID key,
+        String key,
         LocalDateTime registerDate) {
 
 }
