@@ -22,12 +22,21 @@ spec:
         ports:
         - containerPort: 5432
         env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_DB
           value: microservices
         - name: POSTGRES_USER
           value: microservices
         - name: POSTGRES_PASSWORD
           value: secret123
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: pg-data
+      volumes:
+      - name: pg-data
+        persistentVolumeClaim:
+          claimName: pg-data-claim
 ---
 apiVersion: v1
 kind: Service
