@@ -14,7 +14,7 @@ services:
     networks:
     - microservices-network
   user-api:
-    image: paulogabrieljb/user-api:0.0.1
+    image: pgjbz/user-api:0.0.1
     environment:
       DATABASE_HOST: 'microservices-db'
     depends_on:
@@ -24,7 +24,7 @@ services:
     networks:
     - microservices-network
   product-api:
-    image: paulogabrieljb/product-api:0.0.1
+    image: pgjbz/product-api:0.0.1
     environment:
       DATABASE_HOST: 'microservices-db'
     depends_on:
@@ -35,11 +35,16 @@ services:
     - microservices-network
 
   shopping-api:
-    image: paulogabrieljb/shopping-api:0.0.1
+    image: pgjbz/shopping-api:0.0.1
     environment:
       DATABASE_HOST: 'microservices-db'
+      USER_API_HOST: user-api
+      USER_API_PORT: 8080
+      PRODUCT_API_HOST: product-api
+      PRODUCT_API_PORT: 8081
     depends_on:
     - database
+    - product-api
     ports:
     - 8082:8082
     networks:

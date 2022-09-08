@@ -3,15 +3,15 @@ package dev.pgjbz.userapi.infra.dto;
 import javax.validation.constraints.NotBlank;
 
 public record UserRequestDTO(
-        @NotBlank
+        @NotBlank(message = "name is mandatory")
         String name,
-        @NotBlank
+        @NotBlank(message = "document is mandatory")
         String document,
-        @NotBlank
+        @NotBlank(message = "address is mandatory")
         String address,
-        @NotBlank
+        @NotBlank(message = "email is mandatory")
         String email,
-        @NotBlank
+        @NotBlank(message = "phone is mandatory")
         String phone) {
 
 

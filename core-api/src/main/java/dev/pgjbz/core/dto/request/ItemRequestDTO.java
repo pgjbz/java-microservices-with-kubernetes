@@ -1,7 +1,9 @@
 package dev.pgjbz.core.dto.request;
 
+import javax.validation.constraints.NotBlank;
 
 public record ItemRequestDTO(
+        @NotBlank(message = "product identifer is mandatory")
         String productIdentifier,
         Double price
 /*

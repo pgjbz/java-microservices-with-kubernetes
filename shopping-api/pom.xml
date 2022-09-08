@@ -10,7 +10,7 @@
 	
 	<artifactId>shopping-api</artifactId>
 	<version>0.0.1</version>
-	<name>shoppinh-api</name>
+	<name>shopping-api</name>
 	<description>Shopping API ms</description>
 
 	<properties>
@@ -58,7 +58,7 @@
 						<image>${jib-maven-plugin.image}</image>
 					</from>
 					<to>
-						<image>paulogabrieljb/${project.name}:${project.version}</image>
+						<image>pgjbz/${project.name}:${project.version}</image>
 					</to>
 				</configuration>
 				<executions>

@@ -1,5 +1,7 @@
 package dev.pgjbz.shoppingapi.repository.impl;
 
+import static java.util.Optional.ofNullable;
+
 import java.math.BigInteger;
 import java.util.List;
 
@@ -69,15 +71,15 @@ public class ShopRepositoryRepositoryImpl implements ShopReportRepository {
     private final Query buildFindByFilterQuery(String jpql, ShopFilterDTO filter) {
         Query query = entityManager.createQuery(jpql);
         query.setParameter("startDate", filter.startDate());
-        filter.endDate().ifPresent(v -> query.setParameter("endDate", v));
-        filter.minValue().ifPresent(v -> query.setParameter("minValue", v));
+        ofNullable(filter.endDate()).ifPresent(v -> query.setParameter("endDate", v));
+        ofNullable(filter.minValue()).ifPresent(v -> query.setParameter("minValue", v));
         return query;
     }
 
     private final String buildFindByFilterQuery(ShopFilterDTO filter) {
         var query = new StringBuilder("select s from Shop s where s.date >= :startDate");
-        filter.endDate().ifPresent(v -> query.append(" and s.date <= :endDate"));
-        filter.minValue().ifPresent(v -> query.append(" and s.total >= :minValue"));
+        ofNullable(filter.endDate()).ifPresent(v -> query.append(" and s.date <= :endDate"));
+        ofNullable(filter.minValue()).ifPresent(v -> query.append(" and s.total >= :minValue"));
         return query.toString();
     }
 
