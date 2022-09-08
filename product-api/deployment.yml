@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-api
+  template:
+    metadata:
+      labels:
+        app: product-api
+    spec:
+      containers:
+      - name: product-api
+        image: pgjbz/product-api:0.0.1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: posrgres-configs
+              key: host
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: posrgres-configs
+              key: database
+        - name: DATABASE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: posrgres-configs
+              key: username        
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: posrgres-configs
+              key: password
+        ports:
+        - containerPort: 8081

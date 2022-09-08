@@ -68,6 +68,7 @@ kind: ConfigMap
 metadata:
   name: posrgres-configs
 data:
+  host: postgres-service
   database: microservices
   username: microservices
   password: secret123
