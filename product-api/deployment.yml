@@ -17,7 +17,7 @@ spec:
         image: pgjbz/product-api:0.0.1
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         env:
         - name: DATABASE_HOST
