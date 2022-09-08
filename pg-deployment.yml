@@ -39,3 +39,13 @@ spec:
   - port: 5432
     targetPort: 5432
     protocol: TCP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: posrgres-configs
+data:
+  database: microservices
+  username: microservices
+  password: secret123
+
