@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shopping-api
-        image: pgjbz/shopping-api:0.0.1
+        image: pgjbz/shopping-api:0.1.0
         resources:
           limits:
             memory: "512Mi"
@@ -62,6 +62,12 @@ spec:
               key: product-api-port
         ports:
         - containerPort: 8081
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8082
+          initialDelaySeconds: 15
+          periodSeconds: 3
 ---
 apiVersion: v1
 kind: Service

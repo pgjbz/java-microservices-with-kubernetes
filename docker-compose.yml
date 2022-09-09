@@ -14,7 +14,7 @@ services:
     networks:
     - microservices-network
   user-api:
-    image: pgjbz/user-api:0.0.1
+    image: pgjbz/user-api:0.1.0
     environment:
       DATABASE_HOST: 'microservices-db'
     depends_on:
@@ -24,7 +24,7 @@ services:
     networks:
     - microservices-network
   product-api:
-    image: pgjbz/product-api:0.0.1
+    image: pgjbz/product-api:0.1.0
     environment:
       DATABASE_HOST: 'microservices-db'
     depends_on:
@@ -35,7 +35,7 @@ services:
     - microservices-network
 
   shopping-api:
-    image: pgjbz/shopping-api:0.0.1
+    image: pgjbz/shopping-api:0.1.0
     environment:
       DATABASE_HOST: 'microservices-db'
       USER_API_HOST: user-api

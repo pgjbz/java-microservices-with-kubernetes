@@ -14,6 +14,12 @@ spring:
       hibernate:
         default_schema: shopping
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 application:
   urls:
     user-api: http://${USER_API_HOST:localhost}:${USER_API_PORT:8080}/users/

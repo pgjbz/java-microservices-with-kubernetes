@@ -13,3 +13,9 @@ spring:
     properties:
       hibernate:
         default_schema: users
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
