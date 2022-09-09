@@ -53,3 +53,17 @@ spec:
   ports:
   - port: 8081
     targetPort: 8081
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: product-api
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: product-api
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
