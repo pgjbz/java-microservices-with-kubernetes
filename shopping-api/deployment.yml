@@ -40,6 +40,26 @@ spec:
             configMapKeyRef:
               name: posrgres-configs
               key: password
+        - name: USER_API_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: shopping-config-map
+              key: user-api
+        - name: USER_API_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: shopping-config-map
+              key: user-api-port
+        - name: PRODUCT_API_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: shopping-config-map
+              key: product-api
+        - name: PRODUCT_API_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: shopping-config-map
+              key: product-api-port
         ports:
         - containerPort: 8081
 ---
@@ -53,3 +73,13 @@ spec:
   ports:
   - port: 8082
     targetPort: 8082
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shopping-config-map
+data:
+  user-api: user-api-services
+  user-api-port: '8080'
+  product-api: product-api-services
+  product-api-port: '8081'
