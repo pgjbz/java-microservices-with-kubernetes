@@ -41,7 +41,7 @@ spec:
               name: posrgres-configs
               key: password
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
