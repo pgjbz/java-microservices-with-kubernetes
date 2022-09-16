@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+**/kubernetes-prometheus/
+**/kube-state-metrics-configs/
