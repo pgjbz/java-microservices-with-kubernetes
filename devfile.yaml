@@ -1,0 +1,60 @@
+commands:
+- exec:
+    commandLine: mvn -Dmaven.repo.local=/home/user/.m2/repository package
+    component: tools
+    group:
+      isDefault: true
+      kind: build
+    workingDir: ${PROJECT_SOURCE}
+  id: mvn-package
+- exec:
+    commandLine: java -jar target/*.jar
+    component: tools
+    group:
+      isDefault: true
+      kind: run
+    workingDir: ${PROJECT_SOURCE}
+  id: run
+- exec:
+    commandLine: java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${DEBUG_PORT},suspend=n
+      -jar target/*.jar
+    component: tools
+    group:
+      isDefault: true
+      kind: debug
+    workingDir: ${PROJECT_SOURCE}
+  id: debug
+components:
+- container:
+    endpoints:
+    - name: http-maven
+      targetPort: 8080
+    env:
+    - name: DEBUG_PORT
+      value: "5858"
+    image: quay.io/eclipse/che-java11-maven:next
+    memoryLimit: 512Mi
+    mountSources: true
+    volumeMounts:
+    - name: m2
+      path: /home/user/.m2
+  name: tools
+- name: m2
+  volume: {}
+metadata:
+  description: Upstream Maven and OpenJDK 11
+  displayName: Maven Java
+  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/java-maven.jpg
+  language: Java
+  name: microservices
+  projectType: Maven
+  tags:
+  - Java
+  - Maven
+  version: 1.1.1
+schemaVersion: 2.1.0
+starterProjects:
+- git:
+    remotes:
+      origin: https://github.com/odo-devfiles/springboot-ex.git
+  name: springbootproject

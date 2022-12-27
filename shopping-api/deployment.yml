@@ -76,6 +76,7 @@ metadata:
 spec:
   selector:
     app: shopping-api
+  type: LoadBalancer
   ports:
   - port: 8082
     targetPort: 8082

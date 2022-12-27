@@ -34,3 +34,4 @@ build/
 
 **/kubernetes-prometheus/
 **/kube-state-metrics-configs/
+.odo
